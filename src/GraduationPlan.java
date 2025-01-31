@@ -18,6 +18,8 @@ public class GraduationPlan extends Plan {
     }
 
 
+    // todo: add validation in here, maybe change return type to boolean (whether validation says true or false)
+        // could make that a throw tho
     @Override
     void addCourse(Course c) {
 

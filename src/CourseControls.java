@@ -12,6 +12,7 @@ public class CourseControls {
     private ArrayList<College> college; // when a course can only be taken by students in a certain college
 
     // when constructing, 2 of these will likely be null, as many courses only have one of these as a CourseControl
+    // better design is to probably make 3 more constructors, each with one parameter, but Idc rn
     public CourseControls(ArrayList<Course> courses, int sem, ArrayList<College> college) {
         this.courses = courses;
         this.sem = sem;

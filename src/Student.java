@@ -23,6 +23,7 @@ public class Student {
         this.progress = progress;
     }
 
+    // GETTERS
 
     public String getName() {
         return name;
@@ -41,7 +42,7 @@ public class Student {
     }
 
 
-    // change this to an update year or something, for when a student has enough credits to be in their next year
+    // todo: change this to an update year or something, for when a student has enough credits to be in their next year
     // the method will prob be more complicated, update based on creditsTaken
     public void setYear(YearStanding year) {
         this.year = year;

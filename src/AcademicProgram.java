@@ -15,4 +15,40 @@ public class AcademicProgram {
     private ArrayList<Course> etmReqs; // entrance to major course requirements
     private ArrayList<Course> programReqs; // all course requirements
     // could make ^^^ the ones not in etm
+    // as of rn it is not
+
+
+    public AcademicProgram(String name, ProgramType type, int totalCredits, int minCredits, ArrayList<Course> etmReqs, ArrayList<Course> programReqs) {
+        this.name = name;
+        this.type = type;
+        this.totalCredits = totalCredits;
+        this.minCredits = minCredits;
+        this.etmReqs = etmReqs;
+        this.programReqs = programReqs;
+    }
+
+    // Only GETTERS because STUDENTs should not be able to change this data
+    public String getName() {
+        return name;
+    }
+
+    public ProgramType getType() {
+        return type;
+    }
+
+    public int getTotalCredits() {
+        return totalCredits;
+    }
+
+    public int getMinCredits() {
+        return minCredits;
+    }
+
+    public ArrayList<Course> getEtmReqs() {
+        return etmReqs;
+    }
+
+    public ArrayList<Course> getProgramReqs() {
+        return programReqs;
+    }
 }

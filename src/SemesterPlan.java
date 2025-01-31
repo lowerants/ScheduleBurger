@@ -13,6 +13,7 @@ public class SemesterPlan extends Plan {
         return sem + ": " + courses.toString() + ": " + totalCredits + " cr.";
     }
 
+    // todo: add validation like in the graduation plan
     // temporary, mostly a reminder to updated totalCredits HERE
     public void addCourse(Course c) {
         courses.add(c);
