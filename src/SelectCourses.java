@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 public class SelectCourses {
     private ArrayList<Course> courses;
-    // these are courses that can be replaced with other ones
+    // these are courses.txt that can be replaced with other ones
     // like IST 140 vs CMPSC 131
     // also important for transfer
 

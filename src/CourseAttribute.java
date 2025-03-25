@@ -6,10 +6,10 @@ public enum CourseAttribute {
     HNR, // honors
     W; // writing across the curriculum
 
+
+    // this might be overkill, and will prob knock off like half of these later
     public enum GenEd {
-        GEInterD, GELink, GHW,GH, Gn, GQ, GS, GWS;
+        GEInterD, GELink, GHW, GH, GN, GQ, GS, GWS;
     }
     // enum for now, might just make this a class
-
-
 }

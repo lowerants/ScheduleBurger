@@ -2,23 +2,26 @@ import java.util.ArrayList;
 
 // this may be superfluous
     // as in I might just make GradPlan have an ArrayList<ArrayList<Course>> for the main field
-// if so, Plan no longer needs to exist
-public class SemesterPlan extends Plan {
+
+// for now, keeping this
+public class SemesterPlan extends CourseList {
     private Semester sem;
     private int year;
     private ArrayList<Course> courses;
     private int totalCredits;
 
+    // CONSTRUCTOR
+    public SemesterPlan(String name, ArrayList<Course> courses, Semester sem, int year) {
+        super(name, courses); // reminder: totalCredits calculated in here
+        this.sem = sem;
+        this.year = year;
+    }
+
     public String toString() {
         return sem + ": " + courses.toString() + ": " + totalCredits + " cr.";
     }
 
-    // todo: add validation like in the graduation plan
-    // temporary, mostly a reminder to updated totalCredits HERE
-    public void addCourse(Course c) {
-        courses.add(c);
-        totalCredits += c.getNumCredits();
-    }
+
 
 
     // GETTERS AND SETTERS

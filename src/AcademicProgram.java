@@ -27,6 +27,19 @@ public class AcademicProgram {
         this.programReqs = programReqs;
     }
 
+//    public AcademicProgram(String name) {
+//
+//    }
+//
+
+    public Course contains(Course c) {
+         if(programReqs.contains(c)) {
+             return c;
+         }
+         return null;
+    }
+
+
     // Only GETTERS because STUDENTs should not be able to change this data
     public String getName() {
         return name;

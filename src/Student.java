@@ -12,7 +12,7 @@ public class Student {
     // check ProgramProgress for more details
 
     // CONSTRUCTOR
-    // add the default courses for all students in here
+    // add the default courses.txt for all students in here
     // maybe make that a singleton?
     public Student(String name, String pronouns, int creditsTaken, Map<AcademicProgram, ProgramProgress> progress) {
         this.gpa = 0;
