@@ -42,10 +42,7 @@ public class CourseList {
                     baseDetails[1], // courseCode
                     Integer.parseInt(baseDetails[2]), // numCredits
                     Boolean.parseBoolean(baseDetails[3]), // summer
-
-                    new CourseControls(controls[0]), // courseControls
-                    // for now, this can only take 1 prereq
-                    Integer.parseInt(controls[1]), // minSemester
+                    new CourseControls(controls[0], Integer.parseInt(controls[1])), // courseControls (0-1 prereqs) (minSemester)
                     attributes // attributes
             );
 

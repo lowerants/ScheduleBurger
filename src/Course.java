@@ -13,9 +13,8 @@ public class Course {
 //    private Semester[] semAvailability; // list of semesters the class can be taken in
 
 
-//    private ArrayList<CourseControls> courseControls; // list of Course Controls
-    private CourseControls courseControls;
-    private int minSemester;
+//    private ArrayList<courseControl> courseControl; // list of Course Controls
+    private CourseControls courseControl;
     private ArrayList<CourseAttribute> attributes; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
 
@@ -38,16 +37,14 @@ public class Course {
           int numCredits,
 //                  Semester[] semAvailability,
           boolean summer,
-          CourseControls courseControls,
-          int minSemester,
+          CourseControls courseControl,
           ArrayList<CourseAttribute> attributes) {
         this.name = name;
         this.courseCode = courseCode.toUpperCase();
         this.numCredits = numCredits;
 //        this.semAvailability = semAvailability; // especially important for marking summer classes
         this.summer = summer;
-        this.courseControls = courseControls;
-        this.minSemester = minSemester;
+        this.courseControl = courseControl;
         this.attributes = attributes;
 
         this.available = true;
@@ -60,7 +57,7 @@ public class Course {
             String[] courseInfo = fileReader.next().split("\n");
             String[] baseDetails = courseInfo[0].split(", "); // first 4 fields
 
-            String[] controls = courseInfo[1].split(", "); // courseControls
+            String[] controls = courseInfo[1].split(", "); // courseControl
 
 //            String[] attributesArr = courseInfo[2].split(", ");
 
@@ -71,9 +68,9 @@ public class Course {
             this.numCredits = Integer.parseInt(baseDetails[2]);
             this.summer = Boolean.parseBoolean(baseDetails[3]);
 
-            this.courseControls = new CourseControls(controls[0]);
-//            this.courseControls = new ArrayList<CourseControls>();
-//            this.courseControls.add(new CourseControls(controls[0]));
+            this.courseControl = new CourseControls(controls[0]);
+//            this.courseControl = new ArrayList<courseControl>();
+//            this.courseControl.add(new courseControl(controls[0]));
             // for now, this can only take 1 prereq
 
 
@@ -94,7 +91,7 @@ public class Course {
 
         }
         return returnStr +
-                "\nCourse Controls: " + courseControls +
+                "\nCourse Controls: " + courseControl +
                 "\nAttributes: " + attributes;
 //                "\nTransferable Programs: " + transferablePrograms;
     }
@@ -131,8 +128,8 @@ public class Course {
 //        return semAvailability;
 //    }
 
-    public CourseControls getCourseControls() {
-        return courseControls;
+    public CourseControls getcourseControls() {
+        return courseControl;
     }
 
     public ArrayList<CourseAttribute> getAttributes() {

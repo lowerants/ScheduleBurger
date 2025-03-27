@@ -14,53 +14,38 @@ import java.io.File;
 public class TestHarness {
 
     public static void main(String[] args) {
-        CourseControls cc = new CourseControls("ist130", 1);
-
-        Course ist = new Course("App Dev Studio 1", "ist261", 3, false
-        cc, 1
-        {});
-
-
-        /*
-
-    public String toString() {
-        return name + " " +
-                "Courses: " + courses + "\n" +
-                totalCredits + " credits";
-
+        TestHarness th = new TestHarness();
     }
 
-    public ArrayList<Course> getCourses() {
-        return this.courses;
-    }
+    public TestHarness() {
+
+        System.out.println("Test CourseControls");
+        CourseControls cc = new CourseControls("ist130", 2);
+        System.out.println(cc.getCourses());
+        System.out.println(cc.getSem());
+        System.out.println(cc);
+
+        System.out.println();
+
+        System.out.println("Test Course");
+        Course ist261 = new Course("App Dev Studio 1", "ist261", 3, false, cc, null);
+        System.out.println(ist261.fullString());
+        System.out.println(ist261.summerAvailable());
+        System.out.println(ist261.getName());
+        System.out.println(ist261.getCourseCode());
+        System.out.println(ist261.getNumCredits());
+        System.out.println(ist261.getcourseControls());
+        System.out.println(ist261.getAttributes());
+        System.out.println(ist261.isAvailable());
 
 
-    // todo: add validation like in the graduation plan
-    // temporary, mostly a reminder to updated totalCredits HERE
-    public void addCourse(Course c) {
-        courses.add(c);
-        totalCredits += c.getNumCredits();
-    }
+        System.out.println(ist261);
 
-    // todo: add reminders for the consequences of removing? That might be saved in a list when changing courses
-    public void removeCourse(Course c) {
-        totalCredits -= c.getNumCredits();
-        courses.remove(c);
-    }
-
-    public int getTotalCredits() {
-        return totalCredits;
-    }
-
-         */
-    }
-
-    public TestHarness() throws FileNotFoundException{
-        File courses = new File("C:\\Users\\misce\\OneDrive\\Documents\\GitHub\\ScheduleBurger\\text_files\\courses.txt");
-        CourseList cL = new CourseList("All Courses", courses);
-
-        System.out.println("test:");
-        System.out.println(cL.toString());
+        //        File courses = new File("C:\\Users\\misce\\OneDrive\\Documents\\GitHub\\ScheduleBurger\\text_files\\courses.txt");
+//        CourseList cL = new CourseList("All Courses", courses);
+//
+//        System.out.println("test:");
+//        System.out.println(cL.toString());
 
 
     }
