@@ -7,15 +7,57 @@ i.e., they should test every method in each class.
 
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+
+import org.junit.Assert;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import java.io.File;
 
+
+
 public class TestHarness {
 
-    public static void main(String[] args) {
-        TestHarness th = new TestHarness();
+    @Test
+    public void TestCourseList() {
+        // not being tested, just needed to use these other classes
+        CourseControls ccIST261 = new CourseControls("ist130", 2);
+
+        Course ist261 = new Course("App Dev Studio 1", "ist261", 3, false, ccIST261, null);
+        Course ist230 = new Course("Discrete Math", "ist230", 3, false, null, null);
+
+
+        ArrayList<Course> list = new ArrayList<Course>();
+        list.add(ist261);
+        CourseList cl = new CourseList("List 1", list);
+        System.out.println(cl.getCourses());
+
+        cl.addCourse(ist230);
+        Assertions.assertEquals("[IST261: App Dev Studio 1 [3], IST230: Discrete Math [3]]",cl.getCourses().toString());
+        Assertions.assertFalse(cl.addCourse(ist261));
+        Assertions.assertTrue(cl.removeCourse(ist230));
+        Assertions.assertEquals("[IST261: App Dev Studio 1 [3]]", cl.getCourses().toString());
+        Assertions.assertEquals("List 1 Courses: [IST261: App Dev Studio 1 [3]]\n3 credits", cl.toString());
     }
+
+    @Test
+    public void TestAcademicProgram() {
+
+        TestInfoSingleton testInfo = TestInfoSingleton.getInstance();
+
+        AcademicProgram HCDD = new AcademicProgram("HCDD", ProgramType.MAJOR, 120, 20, testInfo.getList(), testInfo.getList());
+
+        Assertions.assertEquals("HCDD", HCDD.getName());
+        Assertions.assertEquals(ProgramType.MAJOR, HCDD.getType());
+        Assertions.assertEquals(120, HCDD.getTotalCredits());
+        Assertions.assertEquals(20, HCDD.getMinCredits());
+        Assertions.assertEquals(testInfo.getList(), HCDD.getEtmReqs());
+        Assertions.assertEquals(testInfo.getList(), HCDD.getProgramReqs());
+    }
+
+
+//    public static void main(String[] args) {
+//        TestHarness th = new TestHarness();
+//    }
 
     public TestHarness() {
 
@@ -59,3 +101,4 @@ public class TestHarness {
 
     }
 }
+

@@ -88,22 +88,35 @@ public class CourseList {
     }
 
 
-    // todo: add validation like in the graduation plan
-    // temporary, mostly a reminder to updated totalCredits HERE
-    public void addCourse(Course c) {
-        courses.add(c);
-        totalCredits += c.getNumCredits();
-    }
-
-    // todo: add reminders for the consequences of removing? That might be saved in a list when changing courses
-    public void removeCourse(Course c) {
-        totalCredits -= c.getNumCredits();
-        courses.remove(c);
-    }
-
     public int getTotalCredits() {
         return totalCredits;
     }
+
+
+    // this functionality will probably be in a CONTROLLER
+
+
+    // todo: add validation like in the graduation plan
+    public boolean addCourse(Course c) {
+        if(courses.contains(c)) {
+            return false;
+        }
+        courses.add(c);
+        totalCredits += c.getNumCredits();
+        return true;
+    }
+
+    // todo: add reminders for the consequences of removing? That might be saved in a list when changing courses
+    public boolean removeCourse(Course c) {
+        if(!courses.contains(c)) {
+            return false;
+        }
+        totalCredits -= c.getNumCredits();
+        courses.remove(c);
+        return true;
+    }
+
+
 
 
 //        public ArrayList<AcademicProgram> getPrograms() {
