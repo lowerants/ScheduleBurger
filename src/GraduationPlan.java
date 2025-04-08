@@ -3,13 +3,11 @@ import java.util.ArrayList;
 public class GraduationPlan {
     private String name; // name of the plan
     private ArrayList<SemesterPlan> semesterPlans;
-    // private ArrayList<ArrayList<Course>>
 
     private int totalCredits;
     private ArrayList<AcademicProgram> programs;
-    private int graduatingYear; // should I make semester and year into one object?
-    private Semester graduatingSemester; // do I have to add Winter?
-
+    private int graduatingYear;
+    private Semester graduatingSemester;
 
     public GraduationPlan(
             String name,
@@ -31,11 +29,14 @@ public class GraduationPlan {
     }
 
 
+
+    // maybe this just calls semester plan's addCourse
     // todo: add validation in here, maybe change return type to boolean (whether validation says true or false)
         // could make that a throw tho
-    void addCourse(Course c) {
+//    public boolean addCourse(Course c) {
+//        if()
+//    }
 
-    }
 
     public String getName() {
         return name;

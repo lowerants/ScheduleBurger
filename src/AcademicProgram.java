@@ -1,56 +1,52 @@
 import java.util.ArrayList;
 
 // this class would greatly benefit from a singleton Course[] that has requirements needed across all programs
-public class AcademicProgram {
-    private String name;
+public class AcademicProgram extends CourseList implements CourseAdder {
     private ProgramType type;
-    private int totalCredits; // REMOVE?
     private int minCredits; // number of credits before entering the major
-    // ignoring max credits
 
-    // maybe make these Arrays
-    // ArrayList is safer if these want to be updated Ig?
-    // Unclear for now
-    // I think these should prob be Arrays
     private ArrayList<Course> etmReqs; // entrance to major course requirements
-    private ArrayList<Course> programReqs; // all course requirements
-    // could make ^^^ the ones not in etm
-    // as of rn it is not
 
+// this is instead ArrayList<Course> from the superclass
+//    private ArrayList<Course> programReqs; // all course requirements
 
-    public AcademicProgram(String name, ProgramType type, int totalCredits, int minCredits, ArrayList<Course> etmReqs, ArrayList<Course> programReqs) {
-        this.name = name;
+    public AcademicProgram(String name, ArrayList<Course> programReqs, ProgramType type, int minCredits, ArrayList<Course> etmReqs) {
+        super(name, programReqs); // don't forget this calculates totalCredits from the programReqs
+
         this.type = type;
-        this.totalCredits = totalCredits;
         this.minCredits = minCredits;
         this.etmReqs = etmReqs;
-        this.programReqs = programReqs;
     }
 
-//    public AcademicProgram(String name) {
-//
-//    }
-//
 
     public Course contains(Course c) {
-         if(programReqs.contains(c)) {
+         if(super.courses.contains(c)) {
              return c;
          }
          return null;
     }
 
+    @Override
+    public boolean addCourse(Course c) {
+        if(courses.contains(c) || !c.isAvailable()) {
+            return false;
+        }
+        courses.add(c);
+        totalCredits += c.getNumCredits();
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + "\n" +
+                minCredits + " minimum credits required to enter\n" +
+                type + " program\n";
+    }
 
     // Only GETTERS because STUDENTs should not be able to change this data
-    public String getName() {
-        return name;
-    }
 
     public ProgramType getType() {
         return type;
-    }
-
-    public int getTotalCredits() {
-        return totalCredits;
     }
 
     public int getMinCredits() {
@@ -61,7 +57,8 @@ public class AcademicProgram {
         return etmReqs;
     }
 
+    // this is technically overriding getCourses
     public ArrayList<Course> getProgramReqs() {
-        return programReqs;
+        return super.courses;
     }
 }

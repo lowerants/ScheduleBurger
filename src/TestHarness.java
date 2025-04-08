@@ -17,6 +17,44 @@ import java.io.File;
 
 public class TestHarness {
 
+
+    @Test
+    public void testInterface() {
+        TestInfoSingleton testInfo = TestInfoSingleton.getInstance();
+        Course ist210 = new Course("Organization of Data", "ist210", 3, true, null, null);
+
+
+        ArrayList<Course> testList1 = (ArrayList<Course>)testInfo.getList().clone();
+        ArrayList<Course> testList2 = (ArrayList<Course>)testInfo.getList().clone();
+
+
+        ArrayList<CourseAdder> caList = new ArrayList<>();
+
+        caList.add(new SemesterPlan("Semester 1 Plan", testList1, Semester.FALL, 2022));
+        caList.add(new AcademicProgram("HCDD Major", testList2, ProgramType.MAJOR, 20, testList2));
+
+        for(CourseAdder ca : caList) {
+            Assertions.assertTrue(ca.addCourse(ist210));
+        }
+    }
+
+    @Test
+    public void testClassHierarchy() {
+        // toString gets overriden in both
+
+        TestInfoSingleton testInfo = TestInfoSingleton.getInstance();
+
+
+        ArrayList<CourseList> courseLists = new ArrayList<>();
+        courseLists.add(new SemesterPlan("Semester 1 Plan", testInfo.getList(), Semester.FALL, 2022));
+        courseLists.add(new AcademicProgram("HCDD Major", testInfo.getList(), ProgramType.MAJOR, 20, testInfo.getList()));
+
+        for(CourseList cl : courseLists) {
+            System.out.println(cl.toString());
+        }
+    }
+
+
     @Test
     public void TestCourseList() {
         // not being tested, just needed to use these other classes
@@ -24,7 +62,6 @@ public class TestHarness {
 
         Course ist261 = new Course("App Dev Studio 1", "ist261", 3, false, ccIST261, null);
         Course ist230 = new Course("Discrete Math", "ist230", 3, false, null, null);
-
 
         ArrayList<Course> list = new ArrayList<Course>();
         list.add(ist261);
@@ -44,11 +81,11 @@ public class TestHarness {
 
         TestInfoSingleton testInfo = TestInfoSingleton.getInstance();
 
-        AcademicProgram HCDD = new AcademicProgram("HCDD", ProgramType.MAJOR, 120, 20, testInfo.getList(), testInfo.getList());
+        AcademicProgram HCDD = new AcademicProgram("HCDD",testInfo.getList(), ProgramType.MAJOR, 20, testInfo.getList());
 
         Assertions.assertEquals("HCDD", HCDD.getName());
         Assertions.assertEquals(ProgramType.MAJOR, HCDD.getType());
-        Assertions.assertEquals(120, HCDD.getTotalCredits());
+        Assertions.assertEquals(6, HCDD.getTotalCredits());
         Assertions.assertEquals(20, HCDD.getMinCredits());
         Assertions.assertEquals(testInfo.getList(), HCDD.getEtmReqs());
         Assertions.assertEquals(testInfo.getList(), HCDD.getProgramReqs());
@@ -92,13 +129,5 @@ public class TestHarness {
 
     }
 
-
-    @Test
-    public void createCourse() throws FileNotFoundException {
-//        SemesterPlan semPlan = new SemesterPlan(Semester.FALL, 2025, new ArrayList<>());
-//        semPlan.addCourse()
-
-
-    }
 }
 

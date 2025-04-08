@@ -4,11 +4,9 @@ import java.util.ArrayList;
     // as in I might just make GradPlan have an ArrayList<ArrayList<Course>> for the main field
 
 // for now, keeping this
-public class SemesterPlan extends CourseList {
+public class SemesterPlan extends CourseList implements CourseAdder {
     private Semester sem;
     private int year;
-    private ArrayList<Course> courses;
-    private int totalCredits;
 
     // CONSTRUCTOR
     public SemesterPlan(String name, ArrayList<Course> courses, Semester sem, int year) {
@@ -17,20 +15,28 @@ public class SemesterPlan extends CourseList {
         this.year = year;
     }
 
+    @Override
     public String toString() {
-        return sem + ": " + courses.toString() + ": " + totalCredits + " cr.";
+        return super.toString() + "\n" +
+                sem + " " + year + ": " + courses.toString();
     }
 
 
-
+    public boolean addCourse(Course c) {
+        if(totalCredits <= 19 && c.isAvailable()) {
+            courses.add(c);
+            totalCredits += c.getNumCredits();
+            return true;
+        }
+        return false;
+    }
 
     // GETTERS AND SETTERS
-
-    public Semester getSem() {
+    public Semester getSemester() {
         return sem;
     }
 
-    public void setSem(Semester sem) {
+    public void setSemester(Semester sem) {
         this.sem = sem;
     }
 
@@ -40,14 +46,6 @@ public class SemesterPlan extends CourseList {
 
     public void setYear(int year) {
         this.year = year;
-    }
-
-    public ArrayList<Course> getCourses() {
-        return courses;
-    }
-
-    public int getTotalCredits() {
-        return totalCredits;
     }
 
     public void setTotalCredits(int totalCredits) {
