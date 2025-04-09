@@ -1,3 +1,5 @@
+package Enums;
+
 public enum ProgramType {
     MAJOR, MINOR;
     // CERT, FOCUS, OTHER;

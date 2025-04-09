@@ -1,3 +1,5 @@
+package Enums;
+
 public enum YearStanding {
     FRESHMAN, SOPHOMORE, JUNIOR, SENIOR
 }

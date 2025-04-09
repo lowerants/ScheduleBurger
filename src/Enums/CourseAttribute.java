@@ -1,3 +1,5 @@
+package Enums;
+
 public enum CourseAttribute {
     BA, // bachelor of arts
     CD, // uhhh

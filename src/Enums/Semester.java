@@ -1,3 +1,5 @@
+package Enums;
+
 public enum Semester {
     SPRING, SUMMER, FALL, WINTER
     // winter is just for graduation year

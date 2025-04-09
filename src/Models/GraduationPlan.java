@@ -1,3 +1,5 @@
+package Models;
+
 import java.util.ArrayList;
 
 public class GraduationPlan {
@@ -33,7 +35,7 @@ public class GraduationPlan {
     // maybe this just calls semester plan's addCourse
     // todo: add validation in here, maybe change return type to boolean (whether validation says true or false)
         // could make that a throw tho
-//    public boolean addCourse(Course c) {
+//    public boolean addCourse(Models.Course c) {
 //        if()
 //    }
 

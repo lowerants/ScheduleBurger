@@ -1,3 +1,5 @@
+package Models;
+
 import java.util.ArrayList;
 
 // tempted to make this class final, but I don't want to remove the possibility to update
@@ -7,7 +9,7 @@ public class CourseControls {
 
     private String course; // when the control is taking another course
     // for now, I won't worry about concurrent vs prereq (probably won't do it for the final assignment either)
-    // String instead of Course makes this WAY easier
+    // String instead of Models.Course makes this WAY easier
 
     private int sem; // when a class can only be taken a certain semester or later
 

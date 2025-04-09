@@ -1,3 +1,5 @@
+package Models;
+
 import java.util.Map;
 
 public class Student {
@@ -7,9 +9,9 @@ public class Student {
     private YearStanding year; // freshman, sophomore, junior, senior
     private int creditsTaken;
 
-//    private Map<AcademicProgram, Integer> academicProgramsAndProgress;
+//    private Map<Models.AcademicProgram, Integer> academicProgramsAndProgress;
     private Map<AcademicProgram, ProgramProgress> progress;
-    // check ProgramProgress for more details
+    // check Enums.ProgramProgress for more details
 
     // CONSTRUCTOR
     // add the default courses.txt for all students in here

@@ -5,14 +5,13 @@ i.e., they should test every method in each class.
  */
 
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 
-import org.junit.Assert;
+import Enums.ProgramType;
+import Enums.Semester;
+import Models.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import java.io.File;
-
 
 
 public class TestHarness {
@@ -30,7 +29,7 @@ public class TestHarness {
 
         ArrayList<CourseAdder> caList = new ArrayList<>();
 
-        caList.add(new SemesterPlan("Semester 1 Plan", testList1, Semester.FALL, 2022));
+        caList.add(new SemesterPlan("Enums.Semester 1 Plan", testList1, Semester.FALL, 2022));
         caList.add(new AcademicProgram("HCDD Major", testList2, ProgramType.MAJOR, 20, testList2));
 
         for(CourseAdder ca : caList) {
@@ -46,7 +45,7 @@ public class TestHarness {
 
 
         ArrayList<CourseList> courseLists = new ArrayList<>();
-        courseLists.add(new SemesterPlan("Semester 1 Plan", testInfo.getList(), Semester.FALL, 2022));
+        courseLists.add(new SemesterPlan("Enums.Semester 1 Plan", testInfo.getList(), Semester.FALL, 2022));
         courseLists.add(new AcademicProgram("HCDD Major", testInfo.getList(), ProgramType.MAJOR, 20, testInfo.getList()));
 
         for(CourseList cl : courseLists) {
@@ -98,7 +97,7 @@ public class TestHarness {
 
     public TestHarness() {
 
-        System.out.println("Test CourseControls");
+        System.out.println("Test Models.CourseControls");
         CourseControls cc = new CourseControls("ist130", 2);
         System.out.println(cc.getCourses());
         System.out.println(cc.getSem());
@@ -106,7 +105,7 @@ public class TestHarness {
 
         System.out.println();
 
-        System.out.println("Test Course");
+        System.out.println("Test Models.Course");
         Course ist261 = new Course("App Dev Studio 1", "ist261", 3, false, cc, null);
         System.out.println(ist261.fullString());
         System.out.println(ist261.summerAvailable());
@@ -121,7 +120,7 @@ public class TestHarness {
         System.out.println(ist261);
 
         //        File courses = new File("C:\\Users\\misce\\OneDrive\\Documents\\GitHub\\ScheduleBurger\\text_files\\courses.txt");
-//        CourseList cL = new CourseList("All Courses", courses);
+//        Models.CourseList cL = new Models.CourseList("All Courses", courses);
 //
 //        System.out.println("test:");
 //        System.out.println(cL.toString());

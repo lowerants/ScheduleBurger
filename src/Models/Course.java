@@ -1,3 +1,5 @@
+package Models;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -10,10 +12,10 @@ public class Course {
 
     // I may simplify this to
     private boolean summer;
-//    private Semester[] semAvailability; // list of semesters the class can be taken in
+//    private Enums.Semester[] semAvailability; // list of semesters the class can be taken in
 
 
-//    private ArrayList<courseControl> courseControl; // list of Course Controls
+//    private ArrayList<courseControl> courseControl; // list of Models.Course Controls
     private CourseControls courseControl;
     private ArrayList<CourseAttribute> attributes; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
@@ -25,7 +27,7 @@ public class Course {
     // CONTAINS FUNCTION IN ACADEMIC PROGRAM
 
     // this one's ambitious but feels pertinent for people that want to change majors
-//    private ArrayList<AcademicProgram> transferablePrograms;
+//    private ArrayList<Models.AcademicProgram> transferablePrograms;
     // to help figure out which programs the course will still be counted for
     // I think I've decided this is too ambitious, will leave it in the code for now
 
@@ -35,7 +37,7 @@ public class Course {
     public Course(String name,
           String courseCode,
           int numCredits,
-//                  Semester[] semAvailability,
+//                  Enums.Semester[] semAvailability,
           boolean summer,
           CourseControls courseControl,
           ArrayList<CourseAttribute> attributes) {
@@ -91,7 +93,7 @@ public class Course {
 
         }
         return returnStr +
-                "\nCourse Controls: " + courseControl +
+                "\nModels.Course Controls: " + courseControl +
                 "\nAttributes: " + attributes;
 //                "\nTransferable Programs: " + transferablePrograms;
     }
@@ -100,8 +102,8 @@ public class Course {
     // might not ending up needing this, we'll see
     public boolean summerAvailable() {
         return summer;
-//        for(Semester s : semAvailability) { // basically a contains method
-//            if(s == Semester.SUMMER) {
+//        for(Enums.Semester s : semAvailability) { // basically a contains method
+//            if(s == Enums.Semester.SUMMER) {
 //                return true;
 //            }
 //        }
@@ -124,7 +126,7 @@ public class Course {
         return numCredits;
     }
 
-//    public Semester[] getSemAvailability() {
+//    public Enums.Semester[] getSemAvailability() {
 //        return semAvailability;
 //    }
 
@@ -140,7 +142,7 @@ public class Course {
         return available;
     }
 
-//    public ArrayList<AcademicProgram> getTransferablePrograms() {
+//    public ArrayList<Models.AcademicProgram> getTransferablePrograms() {
 //        return transferablePrograms;
 //    }
 

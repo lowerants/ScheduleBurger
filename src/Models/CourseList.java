@@ -1,9 +1,8 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+package Models;
 
-// child classes are SemesterPlan and AcademicProgram
+import java.util.ArrayList;
+
+// child classes are Models.SemesterPlan and Models.AcademicProgram
 public class CourseList {
     protected String name;
     protected ArrayList<Course> courses;
@@ -17,7 +16,7 @@ public class CourseList {
 
     protected int totalCredits;
 
-//    public CourseList(String name, File file) throws FileNotFoundException {
+//    public Models.CourseList(String name, File file) throws FileNotFoundException {
 //        this.name = name;
 //        Scanner fileReader = new Scanner(file);
 //        fileReader.useDelimiter("\n\n");
@@ -30,27 +29,27 @@ public class CourseList {
 ////            String[] transferablePrograms =
 ////            String[] attributesArr = courseInfo[2].split(", ");
 //
-//            ArrayList<CourseAttribute> attributes = new ArrayList<>();
+//            ArrayList<Enums.CourseAttribute> attributes = new ArrayList<>();
 //            String attr = controls[2].substring(1, controls[2].length()-1);
 //            if(!attr.equals("}")){
-//                attributes.add(CourseAttribute.valueOf(attr)); // only one CourseAttribute for now
+//                attributes.add(Enums.CourseAttribute.valueOf(attr)); // only one Enums.CourseAttribute for now
 //            }
-//            Course c = new Course(
+//            Models.Course c = new Models.Course(
 //                    baseDetails[0], // name
 //                    baseDetails[1], // courseCode
 //                    Integer.parseInt(baseDetails[2]), // numCredits
 //                    Boolean.parseBoolean(baseDetails[3]), // summer
-//                    new CourseControls(controls[0], Integer.parseInt(controls[1])), // courseControls (0-1 prereqs) (minSemester)
+//                    new Models.CourseControls(controls[0], Integer.parseInt(controls[1])), // courseControls (0-1 prereqs) (minSemester)
 //                    attributes // attributes
 //            );
 //
 //            courses.add(c);
 //
-////            this.courseControls = new ArrayList<CourseControls>();
-////            this.courseControls.add(new CourseControls(controls[0]));
+////            this.courseControls = new ArrayList<Models.CourseControls>();
+////            this.courseControls.add(new Models.CourseControls(controls[0]));
 //        }
 //
-//        for(Course c : courses) {
+//        for(Models.Course c : courses) {
 //            totalCredits += c.getNumCredits();
 //        }
 //    }
@@ -112,13 +111,13 @@ public class CourseList {
 
 
 
-//        public ArrayList<AcademicProgram> getPrograms() {
+//        public ArrayList<Models.AcademicProgram> getPrograms() {
 //            return programs;
 //        }
 //
 //
 //        // change the name to Change Programs?
-//        public void setPrograms(ArrayList<AcademicProgram> programs) {
+//        public void setPrograms(ArrayList<Models.AcademicProgram> programs) {
 //            this.programs = programs;
 //        }
 //
@@ -130,11 +129,11 @@ public class CourseList {
 //            this.graduatingYear = graduatingYear;
 //        }
 //
-//        public Semester getGraduatingSemester() {
+//        public Enums.Semester getGraduatingSemester() {
 //            return graduatingSemester;
 //        }
 //
-//        public void setGraduatingSemester(Semester graduatingSemester) {
+//        public void setGraduatingSemester(Enums.Semester graduatingSemester) {
 //            this.graduatingSemester = graduatingSemester;
 //        }
 }

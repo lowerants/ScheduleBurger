@@ -1,3 +1,5 @@
+package Enums;
+
 public enum ProgramProgress {
     NOT_STARTED, STARTED, ENTERED, COMPLETED;
 
