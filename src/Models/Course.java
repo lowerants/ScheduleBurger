@@ -1,5 +1,7 @@
 package Models;
 
+import Enums.CourseAttribute;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -51,33 +53,33 @@ public class Course {
 
         this.available = true;
     }
-
-    public Course(File file) throws FileNotFoundException {
-        Scanner fileReader = new Scanner(file);
-        fileReader.useDelimiter("\n\n");
-        while(fileReader.hasNext()) {
-            String[] courseInfo = fileReader.next().split("\n");
-            String[] baseDetails = courseInfo[0].split(", "); // first 4 fields
-
-            String[] controls = courseInfo[1].split(", "); // courseControl
-
-//            String[] attributesArr = courseInfo[2].split(", ");
-
-
-
-            this.name = baseDetails[0];
-            this.courseCode = baseDetails[1];
-            this.numCredits = Integer.parseInt(baseDetails[2]);
-            this.summer = Boolean.parseBoolean(baseDetails[3]);
-
-            this.courseControl = new CourseControls(controls[0]);
-//            this.courseControl = new ArrayList<courseControl>();
-//            this.courseControl.add(new courseControl(controls[0]));
-            // for now, this can only take 1 prereq
-
-
-        }
-    }
+//
+//    public Course(File file) throws FileNotFoundException {
+//        Scanner fileReader = new Scanner(file);
+//        fileReader.useDelimiter("\n\n");
+//        while(fileReader.hasNext()) {
+//            String[] courseInfo = fileReader.next().split("\n");
+//            String[] baseDetails = courseInfo[0].split(", "); // first 4 fields
+//
+//            String[] controls = courseInfo[1].split(", "); // courseControl
+//
+////            String[] attributesArr = courseInfo[2].split(", ");
+//
+//
+//
+//            this.name = baseDetails[0];
+//            this.courseCode = baseDetails[1];
+//            this.numCredits = Integer.parseInt(baseDetails[2]);
+//            this.summer = Boolean.parseBoolean(baseDetails[3]);
+//
+//            this.courseControl = new CourseControls(controls[0]);
+////            this.courseControl = new ArrayList<courseControl>();
+////            this.courseControl.add(new courseControl(controls[0]));
+//            // for now, this can only take 1 prereq
+//
+//
+//        }
+//    }
 
     @Override
     public String toString() {

@@ -1,5 +1,7 @@
 package Models;
 
+import Enums.ProgramType;
+
 import java.util.ArrayList;
 
 // this class would greatly benefit from a singleton Models.Course[] that has requirements needed across all programs

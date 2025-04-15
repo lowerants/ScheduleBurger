@@ -1,5 +1,7 @@
 package Models;
 
+// lol this doesn't seem that useful tbh
+
 import java.util.ArrayList;
 
 // tempted to make this class final, but I don't want to remove the possibility to update
@@ -7,39 +9,41 @@ import java.util.ArrayList;
 public class CourseControls {
     // courses.txt will have these as an ArrayList of requirements for them
 
-    private String course; // when the control is taking another course
-    // for now, I won't worry about concurrent vs prereq (probably won't do it for the final assignment either)
-    // String instead of Models.Course makes this WAY easier
+    private ArrayList<String> course; // when the control is taking another course
+    // ArrayList because the list of courses are all "either or"
+        // as in you only need to take one of these courses
 
     private int sem; // when a class can only be taken a certain semester or later
 
+    public CourseControls(ArrayList<String> courses) {
+        this.course = courses;
+    }
 
-    // when constructing, 2 of these will likely be null, as many courses.txt only have one of these as a CourseControl
-    // better design is to probably make 3 more constructors, each with one parameter, but Idc rn
     public CourseControls(String course, int sem) {
-        this.course = course;
+        this.course = new ArrayList<>();
+        this.course.add(course);
         this.sem = sem;
     }
 
     public CourseControls(String course) {
-        this.course = course;
+        this.course = new ArrayList<>();
+        this.course.add(course);
         this.sem = 1;
     }
 
     @Override
     public String toString() {
-        ArrayList<String> str = new ArrayList<>();
+        String str = "";
         if(!this.course.isEmpty()) {
-            str.add(this.course);
+            str += this.course;
         }
         if(this.sem != 1) {
-            str.add(" " + this.sem);
+            str += " " + this.sem + " semester minimum";
         }
-
-        return str.toString();
+        return str;
     }
 
-    public String getCourses() {
+    public ArrayList<String> getCourses() {
         return course;
     }
 
