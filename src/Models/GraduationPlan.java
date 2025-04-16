@@ -1,5 +1,7 @@
 package Models;
 
+import Models.Enums.Semester;
+
 import java.util.ArrayList;
 
 public class GraduationPlan {

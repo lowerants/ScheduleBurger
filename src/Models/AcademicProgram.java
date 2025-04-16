@@ -1,6 +1,6 @@
 package Models;
 
-import Enums.ProgramType;
+import Models.Enums.ProgramType;
 
 import java.util.ArrayList;
 
@@ -8,20 +8,27 @@ import java.util.ArrayList;
 public class AcademicProgram extends CourseList implements CourseAdder {
     private ProgramType type;
     private int minCredits; // number of credits before entering the major
-
     private ArrayList<Course> etmReqs; // entrance to major course requirements
 
 // this is instead ArrayList<Models.Course> from the superclass
 //    private ArrayList<Models.Course> programReqs; // all course requirements
 
+    // program reqs does NOT include the etm reqs
     public AcademicProgram(String name, ArrayList<Course> programReqs, ProgramType type, int minCredits, ArrayList<Course> etmReqs) {
         super(name, programReqs); // don't forget this calculates totalCredits from the programReqs
 
         this.type = type;
         this.minCredits = minCredits;
         this.etmReqs = etmReqs;
+        for(Course c : etmReqs) {
+            super.totalCredits += c.getNumCredits();
+        }
     }
 
+//    public AcademicProgram() {
+//        super("", null);
+//
+//    }
 
     public Course contains(Course c) {
          if(super.courses.contains(c)) {
@@ -61,8 +68,11 @@ public class AcademicProgram extends CourseList implements CourseAdder {
         return etmReqs;
     }
 
-    // this is technically overriding getCourses
-    public ArrayList<Course> getProgramReqs() {
-        return super.courses;
+    @Override
+    public ArrayList<Course> getCourses() {
+        ArrayList<Course> allCourses = new ArrayList<>();
+        allCourses.addAll(etmReqs);
+        allCourses.addAll(super.courses);
+        return allCourses;
     }
 }

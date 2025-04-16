@@ -1,5 +1,8 @@
 package Models;
 
+
+import Models.Enums.Semester;
+
 import java.util.ArrayList;
 
 // this may be superfluous

@@ -29,10 +29,10 @@ public class CourseList {
 ////            String[] transferablePrograms =
 ////            String[] attributesArr = courseInfo[2].split(", ");
 //
-//            ArrayList<Enums.CourseAttribute> attributes = new ArrayList<>();
+//            ArrayList<Models.Enums.CourseAttribute> attributes = new ArrayList<>();
 //            String attr = controls[2].substring(1, controls[2].length()-1);
 //            if(!attr.equals("}")){
-//                attributes.add(Enums.CourseAttribute.valueOf(attr)); // only one Enums.CourseAttribute for now
+//                attributes.add(Models.Enums.CourseAttribute.valueOf(attr)); // only one Models.Enums.CourseAttribute for now
 //            }
 //            Models.Course c = new Models.Course(
 //                    baseDetails[0], // name
@@ -129,11 +129,11 @@ public class CourseList {
 //            this.graduatingYear = graduatingYear;
 //        }
 //
-//        public Enums.Semester getGraduatingSemester() {
+//        public Models.Enums.Semester getGraduatingSemester() {
 //            return graduatingSemester;
 //        }
 //
-//        public void setGraduatingSemester(Enums.Semester graduatingSemester) {
+//        public void setGraduatingSemester(Models.Enums.Semester graduatingSemester) {
 //            this.graduatingSemester = graduatingSemester;
 //        }
 }

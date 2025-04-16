@@ -1,11 +1,11 @@
 package Models;
 
-import Enums.CourseAttribute;
+import Models.Enums.CourseAttribute;
+import Models.Enums.CourseStatus;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Scanner;
+import java.util.HashMap;
+
+import static Models.Enums.CourseStatus.*;
 
 public class Course {
     private String name;
@@ -14,13 +14,15 @@ public class Course {
 
     // I may simplify this to
     private boolean summer;
-//    private Enums.Semester[] semAvailability; // list of semesters the class can be taken in
+//    private Models.Enums.Semester[] semAvailability; // list of semesters the class can be taken in
 
 
 //    private ArrayList<courseControl> courseControl; // list of Models.Course Controls
     private CourseControls courseControl;
-    private ArrayList<CourseAttribute> attributes; // what requirements the class fills
+    private CourseAttribute attribute; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
+
+    private CourseStatus courseStatus;
 
 
     // I DONT NEED TRANSFERRABLE PROGRAMS
@@ -34,24 +36,30 @@ public class Course {
     // I think I've decided this is too ambitious, will leave it in the code for now
 
 
-    public Course() {}
+    public Course(String name) {
+        HashMap<String, Course> map = LiteralListOfCourses.getCoursesMap();
+        Course c = map.get(name);
+        this(c.name, c.courseCode, c.numCredits, c.summer, c.courseControl, c.attribute);
+    }
 
     public Course(String name,
           String courseCode,
           int numCredits,
-//                  Enums.Semester[] semAvailability,
+//                  Models.Enums.Semester[] semAvailability,
           boolean summer,
           CourseControls courseControl,
-          ArrayList<CourseAttribute> attributes) {
+          CourseAttribute attributes) {
         this.name = name;
         this.courseCode = courseCode.toUpperCase();
         this.numCredits = numCredits;
 //        this.semAvailability = semAvailability; // especially important for marking summer classes
         this.summer = summer;
         this.courseControl = courseControl;
-        this.attributes = attributes;
+        this.attribute = attributes;
 
         this.available = true;
+
+        this.courseStatus = NOT_TAKING;
     }
 //
 //    public Course(File file) throws FileNotFoundException {
@@ -84,6 +92,7 @@ public class Course {
     @Override
     public String toString() {
         return courseCode + ": " + name + " [" + numCredits + "]";
+//                + " " + courseStatus;
         // unclear rn to add if semAvailability should be visible here
         // if needed, that will be a different method
     }
@@ -96,24 +105,14 @@ public class Course {
         }
         return returnStr +
                 "\nModels.Course Controls: " + courseControl +
-                "\nAttributes: " + attributes;
+                "\nAttributes: " + attribute +
+                "\nStatus: " + courseStatus +
+                "Available: " + available;
 //                "\nTransferable Programs: " + transferablePrograms;
     }
 
-    // returns true if a class is avaiable in the summer
-    // might not ending up needing this, we'll see
-    public boolean summerAvailable() {
-        return summer;
-//        for(Enums.Semester s : semAvailability) { // basically a contains method
-//            if(s == Enums.Semester.SUMMER) {
-//                return true;
-//            }
-//        }
-//        return false;
-    }
 
     // GETTERS
-    // no SETTERS because STUDENTs won't change these
 
     // probably don't need this...
     public String getName() {
@@ -128,21 +127,40 @@ public class Course {
         return numCredits;
     }
 
-//    public Enums.Semester[] getSemAvailability() {
+//    public Models.Enums.Semester[] getSemAvailability() {
 //        return semAvailability;
 //    }
 
-    public CourseControls getcourseControls() {
+    public CourseControls getCourseControls() {
         return courseControl;
     }
 
-    public ArrayList<CourseAttribute> getAttributes() {
-        return attributes;
+    public CourseAttribute getAttributes() {
+        return attribute;
     }
 
     public boolean isAvailable() {
         return available;
     }
+
+    public boolean getSummer() {
+        return summer;
+    }
+
+    public CourseStatus getGrade() {
+        return courseStatus;
+    }
+
+    // SETTERS
+    public void setGrade(CourseStatus g) {
+        this.courseStatus = g;
+    }
+
+    public void setAvailable() {
+        this.available = !this.available;
+    }
+
+
 
 //    public ArrayList<Models.AcademicProgram> getTransferablePrograms() {
 //        return transferablePrograms;

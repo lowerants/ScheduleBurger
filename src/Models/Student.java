@@ -1,5 +1,8 @@
 package Models;
 
+import Models.Enums.ProgramProgress;
+import Models.Enums.YearStanding;
+
 import java.util.Map;
 
 public class Student {
@@ -11,7 +14,7 @@ public class Student {
 
 //    private Map<Models.AcademicProgram, Integer> academicProgramsAndProgress;
     private Map<AcademicProgram, ProgramProgress> progress;
-    // check Enums.ProgramProgress for more details
+    // check Models.Enums.ProgramProgress for more details
 
     // CONSTRUCTOR
     // add the default courses.txt for all students in here

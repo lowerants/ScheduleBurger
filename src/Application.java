@@ -1,11 +1,9 @@
 import Controllers.GraduationPlannerController;
-import ViewUIs.GraduationPlannerUI;
-
-import javax.swing.*;
 
 public class Application  {
 
     public static void main(String[] args) {
+        // The main method creates an instance of the controller class.
         GraduationPlannerController controller = new GraduationPlannerController();
     }
 }

@@ -1,4 +1,4 @@
-package Enums;
+package Models.Enums;
 
 public enum ProgramProgress {
     NOT_STARTED, STARTED, ENTERED, COMPLETED;

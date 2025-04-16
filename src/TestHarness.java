@@ -7,8 +7,8 @@ i.e., they should test every method in each class.
 
 import java.util.ArrayList;
 
-import Enums.ProgramType;
-import Enums.Semester;
+import Models.Enums.ProgramType;
+import Models.Enums.Semester;
 import Models.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -29,7 +29,7 @@ public class TestHarness {
 
         ArrayList<CourseAdder> caList = new ArrayList<>();
 
-        caList.add(new SemesterPlan("Enums.Semester 1 Plan", testList1, Semester.FALL, 2022));
+        caList.add(new SemesterPlan("Models.Enums.Semester 1 Plan", testList1, Semester.FALL, 2022));
         caList.add(new AcademicProgram("HCDD Major", testList2, ProgramType.MAJOR, 20, testList2));
 
         for(CourseAdder ca : caList) {
@@ -45,7 +45,7 @@ public class TestHarness {
 
 
         ArrayList<CourseList> courseLists = new ArrayList<>();
-        courseLists.add(new SemesterPlan("Enums.Semester 1 Plan", testInfo.getList(), Semester.FALL, 2022));
+        courseLists.add(new SemesterPlan("Models.Enums.Semester 1 Plan", testInfo.getList(), Semester.FALL, 2022));
         courseLists.add(new AcademicProgram("HCDD Major", testInfo.getList(), ProgramType.MAJOR, 20, testInfo.getList()));
 
         for(CourseList cl : courseLists) {
@@ -87,7 +87,7 @@ public class TestHarness {
         Assertions.assertEquals(6, HCDD.getTotalCredits());
         Assertions.assertEquals(20, HCDD.getMinCredits());
         Assertions.assertEquals(testInfo.getList(), HCDD.getEtmReqs());
-        Assertions.assertEquals(testInfo.getList(), HCDD.getProgramReqs());
+        Assertions.assertEquals(testInfo.getList(), HCDD.getCourses());
     }
 
 
@@ -108,11 +108,11 @@ public class TestHarness {
         System.out.println("Test Models.Course");
         Course ist261 = new Course("App Dev Studio 1", "ist261", 3, false, cc, null);
         System.out.println(ist261.fullString());
-        System.out.println(ist261.summerAvailable());
+        System.out.println(ist261.getSummer());
         System.out.println(ist261.getName());
         System.out.println(ist261.getCourseCode());
         System.out.println(ist261.getNumCredits());
-        System.out.println(ist261.getcourseControls());
+        System.out.println(ist261.getCourseControls());
         System.out.println(ist261.getAttributes());
         System.out.println(ist261.isAvailable());
 
