@@ -1,10 +1,14 @@
+import Controllers.AllCoursesController;
 import Controllers.GraduationPlannerController;
 
 public class Application  {
 
     public static void main(String[] args) {
         // The main method creates an instance of the controller class.
-        GraduationPlannerController controller = new GraduationPlannerController();
+
+//        GraduationPlannerController controller = new GraduationPlannerController();
+
+        AllCoursesController coursesController = new AllCoursesController();
     }
 }
 

@@ -22,6 +22,14 @@ public class Course {
     private CourseAttribute attribute; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
 
+    public CourseStatus getCourseStatus() {
+        return courseStatus;
+    }
+
+    public void setCourseStatus(CourseStatus courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
     private CourseStatus courseStatus;
 
 

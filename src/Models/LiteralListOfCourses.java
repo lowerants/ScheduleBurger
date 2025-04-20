@@ -45,6 +45,8 @@ public class LiteralListOfCourses {
 
     public static Course engl15 = new Course("Rhetoric and Composition", "ENGL15", 3, true, null, GWS);
 
+    public static ArrayList<Course> allCourses = new ArrayList<>(Arrays.asList(ist210, hcdd113, ist140, ist242, ist220, stat200, ist230, ist261, hcdd264, hcdd340, hcdd364W, hcdd440));
+
     public static HashMap<String, Course> coursesMap = new HashMap<>();
 
 
@@ -76,4 +78,6 @@ public class LiteralListOfCourses {
 
         return coursesMap;
     }
+
+
 }

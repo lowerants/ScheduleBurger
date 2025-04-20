@@ -1,8 +1,10 @@
 package Models;
 
 import Models.Enums.ProgramProgress;
+import Models.Enums.Semester;
 import Models.Enums.YearStanding;
 
+import java.util.ArrayList;
 import java.util.Map;
 
 public class Student {
@@ -12,6 +14,7 @@ public class Student {
     private YearStanding year; // freshman, sophomore, junior, senior
     private int creditsTaken;
 
+    private GraduationPlan gradPlan;
 //    private Map<Models.AcademicProgram, Integer> academicProgramsAndProgress;
     private Map<AcademicProgram, ProgramProgress> progress;
     // check Models.Enums.ProgramProgress for more details
@@ -26,6 +29,7 @@ public class Student {
         this.year = YearStanding.FRESHMAN;
         this.creditsTaken = creditsTaken;
         this.progress = progress;
+        this.gradPlan = new GraduationPlan("", new ArrayList<SemesterPlan>(), new ArrayList<AcademicProgram>(), 2026, Semester.SPRING);
     }
 
     // GETTERS
