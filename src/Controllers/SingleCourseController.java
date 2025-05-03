@@ -5,9 +5,9 @@ import Models.Course;
 import Models.Enums.CourseStatus;
 import Models.HCDDSingleton;
 import ViewUIs.AllCoursesUI;
-import ViewUIs.GraduationPlanUI;
 import ViewUIs.SingleCourseUI;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class SingleCourseController implements ActionListener {
     //        The controller class creates the list of model objects, both the ArrayList and its members.
-    private AcademicProgram ap; // this has an ArrayList as a field
+    private static AcademicProgram ap = HCDDSingleton.getInstance().getAcademicProgram(); // this has an ArrayList as a field
     private ArrayList<Course> courses;
     private Course course;
     private SingleCourseUI ui;
@@ -24,12 +24,13 @@ public class SingleCourseController implements ActionListener {
     private int currentCourseNumber;
 
     private ArrayList<Course> studentCoursesList;
+    private AllCoursesController aController;
 
-
-    public SingleCourseController() {
-
-        this.ap = HCDDSingleton.getInstance().getAcademicProgram();
-        this.courses = ap.getCourses();
+    public SingleCourseController(Course c, AllCoursesController ac, AllCoursesUI acUI) {
+        this.course = c;
+        this.aController = ac;
+        this.courses = aController.getAllCoursesList().getCourses();
+        this.allCoursesUI = acUI;
 
         this.studentCoursesList = new ArrayList<>();
 //        this.studentCoursesList.add(hcdd113);
@@ -39,11 +40,11 @@ public class SingleCourseController implements ActionListener {
 //        this.addActionListenerButtons();
 
         ui.setTitle("Single Course View");
-        ui.setDefaultCloseOperation(EXIT_ON_CLOSE);
-        ui.setSize(3000, 2000);
+        ui.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        ui.setSize(500 , 500);
         ui.setVisible(true);
 
-
+        this.aController.updateUI();
     }
 
     public ArrayList<Course> getListOfCourses() {
@@ -55,9 +56,9 @@ public class SingleCourseController implements ActionListener {
     }
 
     public void addActionListenerButtons() {
-        ui.saveButton.addActionListener(this);
+        ui.saveEditsButton.addActionListener(this);
         ui.editButton.addActionListener(this);
-        ui.cancelEditButton.addActionListener(this);
+        ui.deleteButton.addActionListener(this);
         ui.exitButton.addActionListener(this);
     }
 
@@ -66,27 +67,34 @@ public class SingleCourseController implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         Object obj = e.getSource();
 
-        if (obj == ui.saveButton) {
-            // Grab values from fields and update course
-            Course c = courses.get(currentCourseNumber); // or a new one
-            c.setGrade((CourseStatus) ui.statusComboBox.getSelectedItem());
-            c.setAvailable(); // you might add a setSummer(boolean) if you want
-            // Parse other fields as needed
-            // Optional: validate fields before updating
-        } else if (obj == ui.editButton) {
-            // Enable fields for editing
-            ui.newCourseTextField.setEditable(true);
-        } else if (obj == ui.deleteButton) {
-            courses.remove(currentCourseNumber);
-            ui.dispose();
-            // optionally show AllCoursesUI again
-        } else if (obj == ui.cancelButton) {
+        String newName = ui.editNameTextField.getText();
+        String newCourseCode = ui.editCourseCodeTextField.getText();
+        int newCredits = (int) ui.numCreditsSpinner.getValue();
+//        String newCourseStatus = String.valueOf(ui.editNameTextField);
 
-        } else if (obj == ui.exitButton) {
-//            ui.dispose(); // go back to AllCoursesUI
-            ui.setVisible(false); // go back to AllCoursesUI
-            allCoursesUI.setVisible(true);
+        Course newCourse = new Course(newName, newCourseCode, newCredits, false, null, null);
+
+        if (obj == ui.deleteButton) {
+            this.courses.remove(this.course);
+            ui.dispose();
         }
+        else if(obj == ui.saveEditsButton) {
+            int index = courses.indexOf(this.course);
+            if (index != -1) {
+                courses.set(index, newCourse);
+                this.course = newCourse;
+                JOptionPane.showMessageDialog(ui, "Edits saved!");
+            }
+        }
+        else if(obj == ui.exitButton) {
+            this.ui.dispose(); // close this.ui
+            allCoursesUI.setVisible(true); //
+        }
+        else if(obj == ui.publishButton) {
+            aController.addCourse(newCourse);
+            courses.add(newCourse);
+        }
+        aController.updateUI();
     }
 
 

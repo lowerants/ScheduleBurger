@@ -9,6 +9,8 @@ public class Application  {
 //        GraduationPlannerController controller = new GraduationPlannerController();
 
         AllCoursesController coursesController = new AllCoursesController();
+
+
     }
 }
 

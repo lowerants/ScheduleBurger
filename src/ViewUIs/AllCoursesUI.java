@@ -1,26 +1,48 @@
 package ViewUIs;
 
 import Controllers.AllCoursesController;
+import Controllers.SingleCourseController;
+import Models.AllCoursesTableModel;
+import Models.Course;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 public class AllCoursesUI extends JFrame {
 
     public JPanel buttonPanel;
     public JPanel tablePanel;
     public JScrollPane tableScrollPane;
-    public JTable coursesTable;
     public JButton newButton;
     public JButton showDetailsButton;
     public JButton doneButton;
+    private JPanel mainPanel;
 
     public AllCoursesController controller;
+    public JTable coursesTable;
+
 
     public AllCoursesUI(AllCoursesController controller) {
-        setContentPane(tablePanel);
+        setContentPane(mainPanel);
+        setTitle("All Courses");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setSize(100, 100);
+        setLocationRelativeTo(null);
+
+        ArrayList<Course> allCourses = controller.getAllCoursesList().getCourses();
+
+        AllCoursesTableModel tableModel = new AllCoursesTableModel(allCourses);
+        this.coursesTable.setModel(tableModel);
+
+        showDetailsButton.addActionListener(new DetailsButtonListener());
+        doneButton.addActionListener(e -> System.exit(0));
+        newButton.addActionListener(e -> {
+            SingleCourseController singleCourseController = controller.newCourseSingleCourseController();
+        });
+
 //        setContentPane(buttonPanel);
 //        setContentPane(tableScrollPane);
 //        setContentPane(coursesTable);
@@ -36,12 +58,13 @@ public class AllCoursesUI extends JFrame {
 
     public class DetailsButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
-            int selectedTableRow = coursesTable.getSelectedRow();
-            int selectedModelRow = coursesTable.convertRowIndexToModel(selectedTableRow);
-            if (selectedModelRow < 0) {
-                selectedModelRow = 0;
+            int selectedRow = coursesTable.getSelectedRow();
+            if (selectedRow >= 0) {
+                int modelRow = coursesTable.convertRowIndexToModel(selectedRow);
+                controller.getSingleCourseController(modelRow);
+            } else {
+                JOptionPane.showMessageDialog(AllCoursesUI.this, "Choose a course to view details.");
             }
-//            AllCoursesUI.this.controller.getCourseDetailsUI(selectedModelRow);
         }
     }
 
@@ -69,21 +92,18 @@ public class AllCoursesUI extends JFrame {
      * @noinspection ALL
      */
     private void $$$setupUI$$$() {
-        final JPanel panel1 = new JPanel();
-        panel1.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
+        mainPanel = new JPanel();
+        mainPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 1, new Insets(0, 0, 0, 0), -1, -1));
         tablePanel = new JPanel();
         tablePanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(1, 1, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.add(tablePanel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
+        mainPanel.add(tablePanel, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         tableScrollPane = new JScrollPane();
         tablePanel.add(tableScrollPane, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         coursesTable = new JTable();
         tableScrollPane.setViewportView(coursesTable);
         buttonPanel = new JPanel();
         buttonPanel.setLayout(new com.intellij.uiDesigner.core.GridLayoutManager(2, 3, new Insets(0, 0, 0, 0), -1, -1));
-        panel1.add(buttonPanel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
-        newButton = new JButton();
-        newButton.setText("New");
-        buttonPanel.add(newButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        mainPanel.add(buttonPanel, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_BOTH, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, null, null, null, 0, false));
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
         buttonPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         showDetailsButton = new JButton();
@@ -92,5 +112,16 @@ public class AllCoursesUI extends JFrame {
         doneButton = new JButton();
         doneButton.setText("Done");
         buttonPanel.add(doneButton, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
+        newButton = new JButton();
+        newButton.setText("New");
+        buttonPanel.add(newButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
+
+    /**
+     * @noinspection ALL
+     */
+    public JComponent $$$getRootComponent$$$() {
+        return mainPanel;
+    }
+
 }
