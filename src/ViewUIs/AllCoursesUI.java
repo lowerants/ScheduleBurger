@@ -16,7 +16,7 @@ public class AllCoursesUI extends JFrame {
     public JPanel buttonPanel;
     public JPanel tablePanel;
     public JScrollPane tableScrollPane;
-    public JButton newButton;
+    //    public JButton newButton;
     public JButton showDetailsButton;
     public JButton doneButton;
     private JPanel mainPanel;
@@ -37,11 +37,11 @@ public class AllCoursesUI extends JFrame {
         AllCoursesTableModel tableModel = new AllCoursesTableModel(allCourses);
         this.coursesTable.setModel(tableModel);
 
-        showDetailsButton.addActionListener(new DetailsButtonListener());
+        showDetailsButton.addActionListener(new ShowDetailsButtonListener());
         doneButton.addActionListener(e -> System.exit(0));
-        newButton.addActionListener(e -> {
-            SingleCourseController singleCourseController = controller.newCourseSingleCourseController();
-        });
+//        newButton.addActionListener(e -> {
+//            SingleCourseController singleCourseController = controller.newCourseSingleCourseController();
+//        });
 
 //        setContentPane(buttonPanel);
 //        setContentPane(tableScrollPane);
@@ -56,12 +56,13 @@ public class AllCoursesUI extends JFrame {
 //        parseStudentCourseList();
     }
 
-    public class DetailsButtonListener implements ActionListener {
+    public class ShowDetailsButtonListener implements ActionListener {
         public void actionPerformed(ActionEvent e) {
             int selectedRow = coursesTable.getSelectedRow();
             if (selectedRow >= 0) {
                 int modelRow = coursesTable.convertRowIndexToModel(selectedRow);
-                controller.getSingleCourseController(modelRow);
+                Course selectedCourse = controller.getCourses().get(modelRow);
+                new SingleCourseController(selectedCourse, controller, AllCoursesUI.this);
             } else {
                 JOptionPane.showMessageDialog(AllCoursesUI.this, "Choose a course to view details.");
             }
@@ -107,14 +108,11 @@ public class AllCoursesUI extends JFrame {
         final com.intellij.uiDesigner.core.Spacer spacer1 = new com.intellij.uiDesigner.core.Spacer();
         buttonPanel.add(spacer1, new com.intellij.uiDesigner.core.GridConstraints(0, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_VERTICAL, 1, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_WANT_GROW, null, null, null, 0, false));
         showDetailsButton = new JButton();
-        showDetailsButton.setText("Show Details");
+        showDetailsButton.setText("Show Details or Make New Course");
         buttonPanel.add(showDetailsButton, new com.intellij.uiDesigner.core.GridConstraints(1, 2, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
         doneButton = new JButton();
         doneButton.setText("Done");
         buttonPanel.add(doneButton, new com.intellij.uiDesigner.core.GridConstraints(1, 1, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
-        newButton = new JButton();
-        newButton.setText("New");
-        buttonPanel.add(newButton, new com.intellij.uiDesigner.core.GridConstraints(1, 0, 1, 1, com.intellij.uiDesigner.core.GridConstraints.ANCHOR_CENTER, com.intellij.uiDesigner.core.GridConstraints.FILL_HORIZONTAL, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_SHRINK | com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_CAN_GROW, com.intellij.uiDesigner.core.GridConstraints.SIZEPOLICY_FIXED, null, null, null, 0, false));
     }
 
     /**

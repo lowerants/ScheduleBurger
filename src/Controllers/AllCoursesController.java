@@ -42,7 +42,7 @@ public class AllCoursesController implements ActionListener
     }
 
     public void addActionListenerButtons() {
-        ui.newButton.addActionListener(this);
+//        ui.newButton.addActionListener(this);
         ui.showDetailsButton.addActionListener(this);
         ui.doneButton.addActionListener(this);
     }
@@ -53,6 +53,9 @@ public class AllCoursesController implements ActionListener
 
     }
 
+    public ArrayList<Course> getCourses() {
+        return this.courses;
+    }
     public CourseList getAllCoursesList() {
         return this.allCoursesList;
     }
