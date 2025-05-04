@@ -5,6 +5,7 @@ import Models.Enums.CourseStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 import static Models.Enums.CourseStatus.*;
 
@@ -19,16 +20,10 @@ public class Course implements Serializable {
     private CourseAttribute attribute; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
 
-    public CourseStatus getCourseStatus() {
-        return courseStatus;
-    }
-
-    public void setCourseStatus(CourseStatus courseStatus) {
-        this.courseStatus = courseStatus;
-    }
-
     private CourseStatus courseStatus;
 
+    // LinkedList assignment
+    private LinkedList<Student> waitList;
 
     // I DONT NEED TRANSFERRABLE PROGRAMS
     // I JUST NEED TO BE ABLE TO CROSS REFERENCE LATER
@@ -59,34 +54,9 @@ public class Course implements Serializable {
         this.available = true;
 
         this.courseStatus = NOT_TAKING;
+
+        this.waitList = new LinkedList<>();
     }
-//
-//    public Course(File file) throws FileNotFoundException {
-//        Scanner fileReader = new Scanner(file);
-//        fileReader.useDelimiter("\n\n");
-//        while(fileReader.hasNext()) {
-//            String[] courseInfo = fileReader.next().split("\n");
-//            String[] baseDetails = courseInfo[0].split(", "); // first 4 fields
-//
-//            String[] controls = courseInfo[1].split(", "); // courseControl
-//
-////            String[] attributesArr = courseInfo[2].split(", ");
-//
-//
-//
-//            this.name = baseDetails[0];
-//            this.courseCode = baseDetails[1];
-//            this.numCredits = Integer.parseInt(baseDetails[2]);
-//            this.summer = Boolean.parseBoolean(baseDetails[3]);
-//
-//            this.courseControl = new CourseControls(controls[0]);
-////            this.courseControl = new ArrayList<courseControl>();
-////            this.courseControl.add(new courseControl(controls[0]));
-//            // for now, this can only take 1 prereq
-//
-//
-//        }
-//    }
 
     @Override
     public String toString() {
@@ -159,10 +129,70 @@ public class Course implements Serializable {
         this.available = !this.available;
     }
 
+    public CourseStatus getCourseStatus() {
+        return courseStatus;
+    }
 
+    public void setCourseStatus(CourseStatus courseStatus) {
+        this.courseStatus = courseStatus;
+    }
+
+    public LinkedList<Student> getWaitList() {
+        return this.waitList;
+    }
+
+    public void addStudentToWaitList(Student s) {
+        this.waitList.add(s);
+    }
+
+    public boolean removeStudentFromWaitList(Student s) {
+        return this.waitList.remove(s);
+    }
+
+    public Student getStudentFromWaitList(String studentName) {
+        for(Student student : this.waitList) {
+            if(student.getName().equals(studentName)) {
+                return student;
+            }
+        }
+        return null;
+    }
+
+    public int getWaitListSize() {
+        return this.waitList.size();
+    }
 
 //    public ArrayList<Models.AcademicProgram> getTransferablePrograms() {
 //        return transferablePrograms;
 //    }
+
+    //
+//    public Course(File file) throws FileNotFoundException {
+//        Scanner fileReader = new Scanner(file);
+//        fileReader.useDelimiter("\n\n");
+//        while(fileReader.hasNext()) {
+//            String[] courseInfo = fileReader.next().split("\n");
+//            String[] baseDetails = courseInfo[0].split(", "); // first 4 fields
+//
+//            String[] controls = courseInfo[1].split(", "); // courseControl
+//
+////            String[] attributesArr = courseInfo[2].split(", ");
+//
+//
+//
+//            this.name = baseDetails[0];
+//            this.courseCode = baseDetails[1];
+//            this.numCredits = Integer.parseInt(baseDetails[2]);
+//            this.summer = Boolean.parseBoolean(baseDetails[3]);
+//
+//            this.courseControl = new CourseControls(controls[0]);
+////            this.courseControl = new ArrayList<courseControl>();
+////            this.courseControl.add(new courseControl(controls[0]));
+//            // for now, this can only take 1 prereq
+//
+//
+//        }
+//    }
+
 
 }

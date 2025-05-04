@@ -7,6 +7,7 @@ import Models.Enums.YearStanding;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
 
 public class Student implements Serializable {
@@ -20,6 +21,9 @@ public class Student implements Serializable {
 //    private Map<Models.AcademicProgram, Integer> academicProgramsAndProgress;
     private HashMap<AcademicProgram, ProgramProgress> progress;
     // check Models.Enums.ProgramProgress for more details
+
+    private CourseList waitListedCourses;
+
 
     // CONSTRUCTOR
     // add the default courses.txt for all students in here
@@ -39,6 +43,8 @@ public class Student implements Serializable {
         this.creditsTaken = 0;
         this.progress = new HashMap<AcademicProgram, ProgramProgress>();
         this.gradPlan = new GraduationPlan("[New Grad Plan]");
+
+        this.waitListedCourses = new CourseList(this.name + "'s waitlist");
     }
 
     // GETTERS
