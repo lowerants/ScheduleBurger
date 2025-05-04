@@ -1,11 +1,13 @@
 package Models;
 
+import java.io.*;
 import java.util.ArrayList;
 
 // child classes are Models.SemesterPlan and Models.AcademicProgram
-public class CourseList {
+public class CourseList implements Serializable {
     protected String name;
     protected ArrayList<Course> courses;
+    protected String listOfCoursesFileName = "listOfCourses.ser";
     // maybe make this a map
     // actually can't do that because courses may have to be included multiple times
     // well
@@ -16,7 +18,7 @@ public class CourseList {
 
     protected int totalCredits;
 
-//    public Models.CourseList(String name, File file) throws FileNotFoundException {
+//    public CourseList(String name, File file) throws FileNotFoundException {
 //        this.name = name;
 //        Scanner fileReader = new Scanner(file);
 //        fileReader.useDelimiter("\n\n");
@@ -59,31 +61,87 @@ public class CourseList {
         this.name = name;
         this.courses = courses;
         this.totalCredits = 0;
-        for(Course c : courses) {
-            this.totalCredits += c.getNumCredits();
+        if(!courses.isEmpty() && !(courses == null)) {
+            for(Course c : courses) {
+                this.totalCredits += c.getNumCredits();
+            }
         }
+
+    }
+
+    public CourseList(String name) {
+        this.readCourseListFile();
+        if(courses == null || courses.isEmpty()) {
+            this.createTestCourseList();
+            this.writeCourseListFile();
+            this.readCourseListFile();
+        }
+        this.printCourseList();
+    }
+
+    public void printCourseList() {
+        for(Course c : this.courses) {
+            System.out.println(c.toString());
+        }
+    }
+
+    public void readCourseListFile() {
+        FileInputStream fis = null;
+        ObjectInputStream in = null;
+        try {
+            fis = new FileInputStream(listOfCoursesFileName);
+            in = new ObjectInputStream(fis);
+            courses = (ArrayList) in.readObject();
+            in.close();
+            if (!courses.isEmpty()) {
+                System.out.println("There are Course objects in this.courses");
+            }
+        } catch (FileNotFoundException fne) {
+            System.out.println("File was not found, a new one will be created");
+        } catch (IOException | ClassNotFoundException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void writeCourseListFile() {
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        try {
+            fos = new FileOutputStream(listOfCoursesFileName);
+            out = new ObjectOutputStream(fos);
+            out.writeObject(courses);
+            out.close();
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    public void createTestCourseList() {
+        courses = new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            courses.add(new Course("IST210"));
+        }
+        System.out.println("Test CourseList created");
+        System.out.println("The CourseList is: " + courses);
     }
 
     public String toString() {
         return name + " " +
-                "Courses: " + courses + "\n" +
-                totalCredits + " credits";
+            "Courses: " + courses + "\n" +
+            totalCredits + " credits";
     }
 
     public String getName() {
         return name;
     }
 
-
     public ArrayList<Course> getCourses() {
         return this.courses;
     }
 
-
     public int getTotalCredits() {
         return totalCredits;
     }
-
 
     // this functionality will probably be in a CONTROLLER
 

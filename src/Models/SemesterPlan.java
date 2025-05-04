@@ -3,13 +3,14 @@ package Models;
 
 import Models.Enums.Semester;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // this may be superfluous
     // as in I might just make GradPlan have an ArrayList<ArrayList<Models.Course>> for the main field
 
 // for now, keeping this
-public class SemesterPlan extends CourseList implements CourseAdder {
+public class SemesterPlan extends CourseList implements CourseAdder, Serializable {
     private Semester sem;
     private int year;
 

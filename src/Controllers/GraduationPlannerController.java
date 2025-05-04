@@ -1,12 +1,8 @@
 package Controllers;
 
-import Models.AcademicProgram;
-import Models.Course;
-import Models.HCDDSingleton;
+import Models.*;
 import ViewUIs.GraduationPlanUI;
 import Models.Enums.CourseStatus;
-import static Models.LiteralListOfCourses.*;
-
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,23 +14,36 @@ import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 public class GraduationPlannerController implements ActionListener {
     //        The controller class creates the list of model objects, both the ArrayList and its members.
     private AcademicProgram ap; // this has an ArrayList as a field
-    private ArrayList<Course> courses;
+
+    private CourseList currentCourseList;
+    private ArrayList<Course> allCourses;
+
     private Course course;
     private GraduationPlanUI ui;
     private int currentCourseNumber;
 
-    private ArrayList<Course> studentCoursesList;
+    private GraduationPlan gradPlan;
+    private StudentList currentStudentList;
+    private ArrayList<Student> listOfStudents;
 
+    private ArrayList<Course> studentCoursesList; // the one that the student is taking
 
     public GraduationPlannerController() {
+        studentCoursesList = new ArrayList<>();
+
+        currentCourseList = new CourseList("All Courses");
+        allCourses = currentCourseList.getCourses();
+
+        this.currentStudentList = new StudentList();
+        this.listOfStudents = currentStudentList.getListOfStudents();
 
         this.ap = HCDDSingleton.getInstance().getAcademicProgram();
-        this.courses = ap.getCourses();
+//        this.courses = ap.getCourses();
 
-        this.studentCoursesList = new ArrayList<>();
+        this.gradPlan = new GraduationPlan("[No Name]");
 //        this.studentCoursesList.add(hcdd113);
 
-        //        The controller class creates and shows an instance of the view class. The view class should include JTextFields to display data accessed from the model objects.
+        // The controller class creates and shows an instance of the view class. The view class should include JTextFields to display data accessed from the model objects.
         ui = new GraduationPlanUI(this);
         this.addActionListenerButtons();
 
@@ -42,8 +51,14 @@ public class GraduationPlannerController implements ActionListener {
         ui.setDefaultCloseOperation(EXIT_ON_CLOSE);
         ui.setSize(3000, 2000);
         ui.setVisible(true);
+    }
 
+    public StudentList getStudentList() {
+        return this.currentStudentList;
+    }
 
+    public ArrayList<Course> getStudentCoursesList() {
+        return this.studentCoursesList;
     }
 
     public ArrayList<Course> getListOfCourses() {
@@ -64,25 +79,25 @@ public class GraduationPlannerController implements ActionListener {
         Object obj = e.getSource();
         if(obj == ui.nextButton) {
             currentCourseNumber = ui.getCurrentCourseNumber();
-            if(currentCourseNumber >= courses.size()-1) {
+            if(currentCourseNumber >= allCourses.size()-1) {
                 currentCourseNumber = 0;
             }
             else {
                 currentCourseNumber++;
             }
             ui.setCurrentCourseNumber(currentCourseNumber);
-            ui.parseCourse(courses.get(currentCourseNumber));
+            ui.parseCourse(allCourses.get(currentCourseNumber));
         }
         else if(obj == ui.previousButton) {
             currentCourseNumber = ui.getCurrentCourseNumber();
             if(currentCourseNumber == 0) {
-                currentCourseNumber = courses.size()-1;
+                currentCourseNumber = allCourses.size()-1;
             }
             else {
                 currentCourseNumber--;
             }
             ui.setCurrentCourseNumber(currentCourseNumber);
-            ui.parseCourse(courses.get(currentCourseNumber));
+            ui.parseCourse(allCourses.get(currentCourseNumber));
         }
         else if(obj == ui.updateButton) {
             Course c = ui.getCourse();
@@ -107,7 +122,5 @@ public class GraduationPlannerController implements ActionListener {
         }
     }
 
-    public ArrayList<Course> getStudentCoursesList() {
-        return this.studentCoursesList;
-    }
+
 }

@@ -2,11 +2,12 @@ package Models;
 
 // lol this doesn't seem that useful tbh
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 // tempted to make this class final, but I don't want to remove the possibility to update
 // ugh, this app should be for Students, I shouldn't worry about how maintenance will manage this
-public class CourseControls {
+public class CourseControls implements Serializable {
     // courses.txt will have these as an ArrayList of requirements for them
 
     private ArrayList<String> course; // when the control is taking another course
@@ -19,13 +20,19 @@ public class CourseControls {
         this.course = courses;
     }
 
-    public CourseControls(String course, int sem) {
-        this.course = new ArrayList<>();
-        this.course.add(course);
-        this.sem = sem;
-    }
+//    public CourseControls(String course, int sem) {
+//        this.course = new ArrayList<>();
+//        this.course.add(course);
+//        this.sem = sem;
+//    }
 
     public CourseControls(String course) {
+        this.course = new ArrayList<>();
+        this.course.add(course);
+        this.sem = 1;
+    }
+
+    public CourseControls(String course, int sem) {
         this.course = new ArrayList<>();
         this.course.add(course);
         this.sem = 1;

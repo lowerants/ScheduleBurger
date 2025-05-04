@@ -4,10 +4,12 @@ import Models.Enums.ProgramProgress;
 import Models.Enums.Semester;
 import Models.Enums.YearStanding;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
-public class Student {
+public class Student implements Serializable {
     private String name;
     private String pronouns; // shoutout trans people
     private double gpa;
@@ -16,20 +18,27 @@ public class Student {
 
     private GraduationPlan gradPlan;
 //    private Map<Models.AcademicProgram, Integer> academicProgramsAndProgress;
-    private Map<AcademicProgram, ProgramProgress> progress;
+    private HashMap<AcademicProgram, ProgramProgress> progress;
     // check Models.Enums.ProgramProgress for more details
 
     // CONSTRUCTOR
     // add the default courses.txt for all students in here
     // maybe make that a singleton?
-    public Student(String name, String pronouns, int creditsTaken, Map<AcademicProgram, ProgramProgress> progress) {
-        this.gpa = 0;
+    public Student(String name, String pronouns, int creditsTaken, HashMap<AcademicProgram, ProgramProgress> progress) {
+        this(name);
         this.pronouns = pronouns;
-        this.name = name;
-        this.year = YearStanding.FRESHMAN;
         this.creditsTaken = creditsTaken;
         this.progress = progress;
-        this.gradPlan = new GraduationPlan("", new ArrayList<SemesterPlan>(), new ArrayList<AcademicProgram>(), 2026, Semester.SPRING);
+    }
+
+    public Student(String name) {
+        this.name = name;
+        this.gpa = 0;
+        this.name = name;
+        this.year = YearStanding.FRESHMAN;
+        this.creditsTaken = 0;
+        this.progress = new HashMap<AcademicProgram, ProgramProgress>();
+        this.gradPlan = new GraduationPlan("[New Grad Plan]");
     }
 
     // GETTERS
@@ -69,7 +78,7 @@ public class Student {
         return progress;
     }
 
-    public void setProgress(Map<AcademicProgram, ProgramProgress> progress) {
+    public void setProgress(HashMap<AcademicProgram, ProgramProgress> progress) {
         this.progress = progress;
     }
 
@@ -79,5 +88,9 @@ public class Student {
 
     public void setPronouns(String pronouns) {
         this.pronouns = pronouns;
+    }
+
+    public String toString() {
+        return name + " (" + pronouns + ") GPA: " + gpa + " Current Credits: " + creditsTaken + " Year: " + year + " Progress: " + progress.toString();
     }
 }

@@ -2,9 +2,10 @@ package Models;
 
 import Models.Enums.Semester;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GraduationPlan {
+public class GraduationPlan implements Serializable {
     private String name; // name of the plan
     private ArrayList<SemesterPlan> semesterPlans;
 
@@ -32,6 +33,14 @@ public class GraduationPlan {
         this.graduatingSemester = graduatingSemester;
     }
 
+    public GraduationPlan(String name) {
+        this.name = name;
+        this.semesterPlans = new ArrayList<SemesterPlan>();
+        this.totalCredits = 0;
+//        this.programs = programs;
+//        this.graduatingYear = graduatingYear;
+//        this.graduatingSemester = graduatingSemester;
+    }
 
 
     // maybe this just calls semester plan's addCourse
@@ -48,6 +57,13 @@ public class GraduationPlan {
 
     public ArrayList<SemesterPlan> getSemesterPlans() {
         return semesterPlans;
+    }
+    public ArrayList<Course> getCourses() {
+        ArrayList<Course> c = new ArrayList<>();
+        for(SemesterPlan s : this.semesterPlans) {
+            c.addAll(s.getCourses());
+        }
+        return c;
     }
 
     public int getTotalCredits() {

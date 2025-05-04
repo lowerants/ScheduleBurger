@@ -3,21 +3,18 @@ package Models;
 import Models.Enums.CourseAttribute;
 import Models.Enums.CourseStatus;
 
+import java.io.Serializable;
 import java.util.HashMap;
 
 import static Models.Enums.CourseStatus.*;
 
-public class Course {
+public class Course implements Serializable {
     private String name;
     private String courseCode; // the letters and numbers
     private int numCredits;
 
-    // I may simplify this to
     private boolean summer;
-//    private Models.Enums.Semester[] semAvailability; // list of semesters the class can be taken in
 
-
-//    private ArrayList<courseControl> courseControl; // list of Models.Course Controls
     private CourseControls courseControl;
     private CourseAttribute attribute; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
@@ -37,12 +34,6 @@ public class Course {
     // I JUST NEED TO BE ABLE TO CROSS REFERENCE LATER
     // SO I CAN JUST CHECK IF THE COURSE EXISTS IN ACADEMIC PROGRAM
     // CONTAINS FUNCTION IN ACADEMIC PROGRAM
-
-    // this one's ambitious but feels pertinent for people that want to change majors
-//    private ArrayList<Models.AcademicProgram> transferablePrograms;
-    // to help figure out which programs the course will still be counted for
-    // I think I've decided this is too ambitious, will leave it in the code for now
-
 
     public Course(String name) {
         HashMap<String, Course> map = LiteralListOfCourses.getCoursesMap();
