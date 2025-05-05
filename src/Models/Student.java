@@ -7,8 +7,7 @@ import Models.Enums.YearStanding;
 import java.io.Serializable;
 import java.util.*;
 
-import static Models.Enums.CourseStatus.CURRENTLY_TAKING;
-import static Models.Enums.CourseStatus.LATE_DROPPED;
+import static Models.Enums.CourseStatus.*;
 
 public class Student implements Serializable {
     public class CourseProgress {
@@ -69,6 +68,34 @@ public class Student implements Serializable {
 
     public HashSet<Course> getWaitListedCourses() {
         return waitListedCourses;
+    }
+
+    public void enterWaitlist(Course c) {
+        this.waitListedCourses.add(c);
+        this.courseProgress.setCourseStatus(c, WAITLISTED);
+    }
+
+    public boolean isOnWaitlist(Course c) {
+        return this.waitListedCourses.contains(c);
+    }
+
+    public boolean leaveWaitlist(Course c) {
+        if(this.waitListedCourses.contains(c)) {
+            this.waitListedCourses.remove(c);
+            this.courseProgress.setCourseStatus(c, NOT_TAKING);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean enterClassFromWaitList(Course c) {
+        if(this.waitListedCourses.contains(c)) {
+            this.addCourse(c);
+            this.waitListedCourses.remove(c);
+            this.courseProgress.setCourseStatus(c, CURRENTLY_TAKING);
+            return true;
+        }
+        return false;
     }
 
     // for passing, failing, etc. a Student in a given Course

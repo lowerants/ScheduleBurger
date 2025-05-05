@@ -1,0 +1,7 @@
+HashSet<Course>
+
+Encapsulated in WaitlistedCourses (nested in Student class)
+Stores the Student’s waitlisted Courses and removes them when they are off of the waitlist
+Has O(1) search, add, remove which are important because Courses need to be quickly added and removed.
+
+Does not need to be ordered
