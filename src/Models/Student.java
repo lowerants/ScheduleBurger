@@ -1,16 +1,41 @@
 package Models;
 
+import Models.Enums.CourseStatus;
 import Models.Enums.ProgramProgress;
-import Models.Enums.Semester;
 import Models.Enums.YearStanding;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.Map;
+import java.util.*;
+
+import static Models.Enums.CourseStatus.CURRENTLY_TAKING;
+import static Models.Enums.CourseStatus.LATE_DROPPED;
 
 public class Student implements Serializable {
+    public class CourseProgress {
+        private HashMap<Course, CourseStatus> courseStatuses;
+        public CourseProgress(Course c) {
+            this.courseStatuses = new HashMap<>();
+            this.courseStatuses.put(c, CURRENTLY_TAKING);
+        }
+        public CourseProgress(List<Course> l) {
+            this.courseStatuses = new HashMap<>();
+            for(Course c : l) {
+                this.courseStatuses.put(c, CURRENTLY_TAKING);
+            }
+        }
+        public CourseProgress() {
+            this.courseStatuses = new HashMap<>();
+        }
+        public void setCourseStatus(Course c, CourseStatus cs) {
+            this.courseStatuses.put(c, cs);
+        }
+
+        public HashMap<Course, CourseStatus> getCourseStatuses() {
+            return this.courseStatuses;
+        }
+    }
+
+
     private String name;
     private String pronouns; // shoutout trans people
     private double gpa;
@@ -22,8 +47,10 @@ public class Student implements Serializable {
     private HashMap<AcademicProgram, ProgramProgress> progress;
     // check Models.Enums.ProgramProgress for more details
 
-    private CourseList waitListedCourses;
+    private HashSet<Course> waitListedCourses;
 
+    // Collections 1 Assignment
+    private CourseProgress courseProgress;
 
     // CONSTRUCTOR
     // add the default courses.txt for all students in here
@@ -35,6 +62,21 @@ public class Student implements Serializable {
         this.progress = progress;
     }
 
+    public CourseProgress getCourseProgress() {
+        return this.courseProgress;
+    }
+
+
+    public HashSet<Course> getWaitListedCourses() {
+        return waitListedCourses;
+    }
+
+    // for passing, failing, etc. a Student in a given Course
+    public void updateCourseStatus(Course c, CourseStatus cs) {
+        this.courseProgress.courseStatuses.put(c, cs);
+    }
+
+
     public Student(String name) {
         this.name = name;
         this.gpa = 0;
@@ -44,10 +86,30 @@ public class Student implements Serializable {
         this.progress = new HashMap<AcademicProgram, ProgramProgress>();
         this.gradPlan = new GraduationPlan("[New Grad Plan]");
 
-        this.waitListedCourses = new CourseList(this.name + "'s waitlist");
+        this.waitListedCourses = new HashSet<>();
+
+        this.courseProgress = new CourseProgress();
+    }
+
+
+    public void addCourse(Course c) {
+        this.gradPlan.add(c);
+        this.courseProgress.setCourseStatus(c, CURRENTLY_TAKING);
+    }
+
+    public boolean lateDropCourse(Course c) {
+        this.courseProgress.setCourseStatus(c, LATE_DROPPED);
+        return gradPlan.getCourses().remove(c);
+    }
+
+    public CourseStatus getCourseStatus(Course c) {
+        return this.courseProgress.getCourseStatuses().get(c);
     }
 
     // GETTERS
+    public GraduationPlan getGradPlan() {
+        return this.gradPlan;
+    }
 
     public String getName() {
         return name;

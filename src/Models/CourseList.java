@@ -119,7 +119,7 @@ public class CourseList implements Serializable {
     public void createTestCourseList() {
         courses = new ArrayList<>();
         for (int i = 0; i < 20; i++) {
-            courses.add(new Course("IST210"));
+            courses.add(Course.makeCourse("IST210"));
         }
         System.out.println("Test CourseList created");
         System.out.println("The CourseList is: " + courses);

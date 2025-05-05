@@ -106,9 +106,8 @@ public class GraduationPlannerController implements ActionListener {
         }
         else if(obj == ui.addButton) {
             String courseCode = ui.addACourseHereTextField.getText();
-            Course c = new Course(courseCode);
+            Course c = Course.makeCourse(courseCode);
             studentCoursesList.add(c);
-            c.setGrade(CourseStatus.UPCOMING_COURSE);
             ui.parseStudentCourseList();
         }
         else if(obj == ui.deleteButton) {

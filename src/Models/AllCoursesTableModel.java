@@ -31,7 +31,7 @@ public class AllCoursesTableModel extends AbstractTableModel {
             case 1 -> (Object) courseList.get(rowIndex).getCourseCode();
             case 2 -> (Object) courseList.get(rowIndex).getNumCredits();
             case 3 -> (Object) courseList.get(rowIndex).getSummer();
-            case 4 -> (Object) courseList.get(rowIndex).getCourseStatus();
+//            case 4 -> (Object) courseList.get(rowIndex).getCourseStatus();
             default -> null;
         };
     }

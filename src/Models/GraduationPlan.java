@@ -7,8 +7,9 @@ import java.util.ArrayList;
 
 public class GraduationPlan implements Serializable {
     private String name; // name of the plan
-    private ArrayList<SemesterPlan> semesterPlans;
+//    private ArrayList<SemesterPlan> semesterPlans;
 
+    private ArrayList<Course> courses;
     private int totalCredits;
     private ArrayList<AcademicProgram> programs;
     private int graduatingYear;
@@ -16,18 +17,20 @@ public class GraduationPlan implements Serializable {
 
     public GraduationPlan(
             String name,
-            ArrayList<SemesterPlan> semesterPlans,
+//            ArrayList<SemesterPlan> semesterPlans,
+            ArrayList<Course> courses,
             ArrayList<AcademicProgram> programs,
             int graduatingYear,
             Semester graduatingSemester) {
         this.name = name;
-        this.semesterPlans = semesterPlans;
+//        this.semesterPlans = semesterPlans;
+        this.courses = courses;
         this.totalCredits = 0;
-        for(SemesterPlan s : semesterPlans) {
-            for(Course c : s.getCourses()) {
-                totalCredits += c.getNumCredits();
-            }
-        }
+//        for(SemesterPlan s : semesterPlans) {
+//            for(Course c : s.getCourses()) {
+//                totalCredits += c.getNumCredits();
+//            }
+//        }
         this.programs = programs;
         this.graduatingYear = graduatingYear;
         this.graduatingSemester = graduatingSemester;
@@ -35,7 +38,8 @@ public class GraduationPlan implements Serializable {
 
     public GraduationPlan(String name) {
         this.name = name;
-        this.semesterPlans = new ArrayList<SemesterPlan>();
+//        this.semesterPlans = new ArrayList<SemesterPlan>();
+        this.courses = new ArrayList<>();
         this.totalCredits = 0;
 //        this.programs = programs;
 //        this.graduatingYear = graduatingYear;
@@ -55,16 +59,20 @@ public class GraduationPlan implements Serializable {
         return name;
     }
 
-    public ArrayList<SemesterPlan> getSemesterPlans() {
-        return semesterPlans;
-    }
+//    public ArrayList<SemesterPlan> getSemesterPlans() {
+//        return semesterPlans;
+//    }
     public ArrayList<Course> getCourses() {
-        ArrayList<Course> c = new ArrayList<>();
-        for(SemesterPlan s : this.semesterPlans) {
-            c.addAll(s.getCourses());
-        }
-        return c;
+//        ArrayList<Course> c = new ArrayList<>();
+//        for(SemesterPlan s : this.semesterPlans) {
+//            c.addAll(s.getCourses());
+//        }
+//        return c;
+
+        return this.courses;
     }
+
+
 
     public int getTotalCredits() {
         return totalCredits;
@@ -100,4 +108,7 @@ public class GraduationPlan implements Serializable {
         this.graduatingSemester = graduatingSemester;
     }
 
+    public void add(Course c) {
+        this.courses.add(c);
+    }
 }

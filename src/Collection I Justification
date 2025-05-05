@@ -1,0 +1,9 @@
+HashMap<Course, CourseStatus>
+encapsulated in the class CourseProgress (nested class in Student)
+
+Stores the Student’s current progress for each of their Courses (currently taking, not passed, failed. etc.)
+
+HashMaps have O(1) search and add (put), but no order.
+There is no ordering required, so the lack of order does not matter, making search and add the most important functions.
+HashMaps do not allow two of the same key, which is okay because a Student can only have 1 status of a course at a time (ie currently taking, passed, failed, etc.) HashMaps allow the same key to be used, which is good because multiple Courses can have the same status
+

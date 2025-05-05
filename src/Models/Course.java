@@ -1,13 +1,13 @@
 package Models;
 
 import Models.Enums.CourseAttribute;
-import Models.Enums.CourseStatus;
 
 import java.io.Serializable;
 import java.util.HashMap;
 import java.util.LinkedList;
 
-import static Models.Enums.CourseStatus.*;
+
+
 
 public class Course implements Serializable {
     private String name;
@@ -20,21 +20,28 @@ public class Course implements Serializable {
     private CourseAttribute attribute; // what requirements the class fills
     private boolean available; // checks if the class is still being provided by the university
 
-    private CourseStatus courseStatus;
 
     // LinkedList assignment
     private LinkedList<Student> waitList;
+
+
 
     // I DONT NEED TRANSFERRABLE PROGRAMS
     // I JUST NEED TO BE ABLE TO CROSS REFERENCE LATER
     // SO I CAN JUST CHECK IF THE COURSE EXISTS IN ACADEMIC PROGRAM
     // CONTAINS FUNCTION IN ACADEMIC PROGRAM
 
-    public Course(String name) {
+    private Course(String name) {
         HashMap<String, Course> map = LiteralListOfCourses.getCoursesMap();
         Course c = map.get(name);
         this(c.name, c.courseCode, c.numCredits, c.summer, c.courseControl, c.attribute);
     }
+
+    public static Course makeCourse(String name) {
+        HashMap<String, Course> map = LiteralListOfCourses.getCoursesMap();
+        return map.get(name.toUpperCase());
+    }
+
 
     public Course(String name,
           String courseCode,
@@ -52,8 +59,6 @@ public class Course implements Serializable {
         this.attribute = attributes;
 
         this.available = true;
-
-        this.courseStatus = NOT_TAKING;
 
         this.waitList = new LinkedList<>();
     }
@@ -75,19 +80,25 @@ public class Course implements Serializable {
         return returnStr +
                 "\nModels.Course Controls: " + courseControl +
                 "\nAttributes: " + attribute +
-                "\nStatus: " + courseStatus +
+//                "\nStatus: " + courseStatus +
                 "Available: " + available;
 //                "\nTransferable Programs: " + transferablePrograms;
     }
 
+    @Override
+    public boolean equals(Object that) {
+        if(that instanceof Course) {
+            return this.getCourseCode().equals(((Course) that).getCourseCode());
+        }
+        return false;
+    }
 
     // GETTERS
 
-    // probably don't need this...
     public String getName() {
         return name;
     }
-    // or this...
+
     public String getCourseCode() {
         return courseCode;
     }
@@ -116,25 +127,10 @@ public class Course implements Serializable {
         return summer;
     }
 
-    public CourseStatus getGrade() {
-        return courseStatus;
-    }
 
     // SETTERS
-    public void setGrade(CourseStatus g) {
-        this.courseStatus = g;
-    }
-
     public void setAvailable() {
         this.available = !this.available;
-    }
-
-    public CourseStatus getCourseStatus() {
-        return courseStatus;
-    }
-
-    public void setCourseStatus(CourseStatus courseStatus) {
-        this.courseStatus = courseStatus;
     }
 
     public LinkedList<Student> getWaitList() {
